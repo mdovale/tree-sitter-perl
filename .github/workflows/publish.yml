@@ -10,10 +10,26 @@ permissions:
   attestations: write
 
 jobs:
+  release-notes:
+    name: Extract release notes
+    runs-on: ubuntu-latest
+    outputs:
+      body: ${{ steps.notes.outputs.body }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: notes
+        run: |
+          body=$(git log -1 --format=%b)
+          echo "body<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$body" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
   github:
+    needs: release-notes
     uses: tree-sitter/workflows/.github/workflows/release.yml@main
     with:
       generate: true
+      release-body: ${{ needs.release-notes.outputs.body }}
 
   # Inlined instead of reusable workflows because tree-sitter/workflows
   # runs `npm install` before `tree-sitter generate`, which fails when
