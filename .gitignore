@@ -24,5 +24,6 @@ src/*
 !src/tree_sitter/alloc.h
 !src/tree_sitter/parser.h
 !src/tree_sitter/array.h
+!src/tree_sitter/ts_assert.h
 tree-sitter-perl.wasm
 log.html
