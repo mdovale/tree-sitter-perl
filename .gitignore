@@ -7,11 +7,18 @@ build
 *.dylib
 *.so
 *.o
+# SwiftPM / Xcode
+.build/
+.swiftpm/
+Package.resolved
+
 src/*
 !src/scanner.c
 !src/bsearch.h
 !src/tsp_unicode.h
 !src/tsp_keywords.h
 !src/grammar.json
+!src/parser.c
+!src/node-types.json
 tree-sitter-perl.wasm
 log.html
